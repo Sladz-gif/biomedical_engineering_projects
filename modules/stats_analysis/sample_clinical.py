@@ -25,7 +25,7 @@ def generate_sample_clinical_data(filename="sample_clinical_data.csv", n_patient
     })
     
     data.to_csv(filename, index=False)
-    print(f"📊 Sample clinical dataset saved to {filename}")
+    print(f" Sample clinical dataset saved to {filename}")
     return data
 
 if __name__ == "__main__":
