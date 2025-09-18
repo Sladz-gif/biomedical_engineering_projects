@@ -1,0 +1,9 @@
+# requirements.txt
+numpy
+scipy
+matplotlib
+pandas
+biopython
+pydicom
+Pillow
+Flask
