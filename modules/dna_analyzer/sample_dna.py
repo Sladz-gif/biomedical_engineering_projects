@@ -1,4 +1,4 @@
-# modules/sample_dna.py
+
 import random
 
 def generate_sample_dna(length=60):
