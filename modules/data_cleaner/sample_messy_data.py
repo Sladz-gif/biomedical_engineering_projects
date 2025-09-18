@@ -21,13 +21,13 @@ def generate_messy_data(num_rows=10, save_csv=True):
         os.makedirs("sample_data", exist_ok=True)
         file_path = os.path.join("sample_data", "messy_data.csv")
         df.to_csv(file_path, index=False)
-        print(f"📂 New messy data saved to {file_path}")
+        print(f" New messy data saved to {file_path}")
 
     return df
 
 def main():
     """Entry point for messy data generator."""
-    print("\n🧪 Generating new messy biomedical sample data...\n")
+    print("\n Generating new messy biomedical sample data...\n")
     df = generate_messy_data()
     print(df.head())
 
