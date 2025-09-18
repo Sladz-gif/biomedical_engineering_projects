@@ -3,8 +3,6 @@ from flask import Flask, jsonify, send_file
 import os
 
 # --- Import all modules ---
-from modules.data_cleaner import clean_data
-from modules.data_cleaner.sample_messy_data import generate_messy_data
 from modules.dicom_metadata.dicom_extractor import extract_dicom_metadata
 from modules.dna_analyzer import analyze_dna
 from modules.sample_dna import generate_sample_dna
@@ -25,24 +23,15 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "<h1>Biomedical Engineering Portfolio API</h1>" \
-           "<p>Available routes: /clean_data, /dicom_metadata, /dna_analyzer, /dose_response, /ecg, /clinical_stats</p>"
+           "<p>Available routes: /dicom_metadata, /dna_analyzer, /dose_response, /ecg, /clinical_stats</p>"
 
-# 1. Data Cleaner
-@app.route("/clean_data")
-def run_clean_data():
-    generate_messy_data()
-    df = clean_data()
-    if df is not None:
-        return df.to_json(orient="records")
-    return jsonify({"error": "Failed to clean data"})
-
-# 2. DICOM Metadata
+# 1. DICOM Metadata
 @app.route("/dicom_metadata")
 def run_dicom_metadata():
     meta = extract_dicom_metadata()
     return jsonify(meta)
 
-# 3. DNA Analyzer
+# 2. DNA Analyzer
 @app.route("/dna_analyzer")
 def run_dna_analyzer():
     seq = generate_sample_dna(length=60)
@@ -50,7 +39,7 @@ def run_dna_analyzer():
     results["Generated_Sequence"] = seq
     return jsonify(results)
 
-# 4. Dose-Response Curve Fitter
+# 3. Dose-Response Curve Fitter
 @app.route("/dose_response")
 def run_dose_response():
     generate_sample_dose_response()
@@ -62,7 +51,7 @@ def run_dose_response():
         "plot_url": f"/plot/dose_response"
     })
 
-# 5. ECG Analyzer
+# 4. ECG Analyzer
 @app.route("/ecg")
 def run_ecg():
     df, file_path = generate_ecg()
@@ -81,7 +70,7 @@ def serve_plot(plot_name):
         return send_file(plot_file, mimetype="image/png")
     return jsonify({"error": "Plot not found"})
 
-# 6. Clinical Data Statistics
+# 5. Clinical Data Statistics
 @app.route("/clinical_stats")
 def run_clinical_stats():
     generate_sample_clinical_data()
