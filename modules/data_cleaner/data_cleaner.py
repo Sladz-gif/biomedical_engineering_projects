@@ -37,7 +37,7 @@ def clean_data(df=None):
 
 # Optional: run as script
 if __name__ == "__main__":
-    print("\n🧹 Generating and cleaning biomedical sample data...\n")
+    print("\n Generating and cleaning biomedical sample data...\n")
     df_clean = clean_data()
     print(df_clean.head())
 
@@ -46,4 +46,4 @@ if __name__ == "__main__":
     os.makedirs("sample_data", exist_ok=True)
     cleaned_path = "sample_data/cleaned_data.csv"
     df_clean.to_csv(cleaned_path, index=False)
-    print(f"📂 Cleaned data saved to {cleaned_path}")
+    print(f" Cleaned data saved to {cleaned_path}")
