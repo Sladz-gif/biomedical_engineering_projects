@@ -1,4 +1,4 @@
-# modules/dna_analyzer.py
+
 from modules.sample_dna import generate_sample_dna
 from Bio.Seq import Seq
 
@@ -24,7 +24,7 @@ def analyze_dna(sequence: str) -> dict:
 
 if __name__ == "__main__":
     print("=" * 50)
-    print(" 🧬 DNA SEQUENCE ANALYZER ")
+    print(" DNA SEQUENCE ANALYZER ")
     print("=" * 50)
 
     # Import a random DNA sequence from sample_dna.py
@@ -37,4 +37,4 @@ if __name__ == "__main__":
     for key, value in results.items():
         print(f"{key}: {value}")
 
-    print("\n✨ Analysis Complete!\n")
+    print("\n Analysis Complete!\n")
