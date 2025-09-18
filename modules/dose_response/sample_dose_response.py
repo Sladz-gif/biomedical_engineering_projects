@@ -32,7 +32,7 @@ def generate_sample_dose_response(file_path="sample_dose_response.csv"):
     })
 
     df.to_csv(file_path, index=False)
-    print(f"📊 Sample dose-response data saved to {file_path}")
+    print(f" Sample dose-response data saved to {file_path}")
     return df
 
 if __name__ == "__main__":
