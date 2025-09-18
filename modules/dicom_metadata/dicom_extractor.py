@@ -1,10 +1,11 @@
 # modules/dicom_metadata/dicom_extractor.py
-import pydicom
-import pandas as pd
+import os
 import json
-from sample_dicom import generate_sample_dicom
+import pandas as pd
+import pydicom
+from .sample_dicom import generate_sample_dicom  # relative import for deploy
 
-# Define clinically relevant fields
+# Clinically relevant DICOM fields
 CLINICAL_FIELDS = [
     "PatientName",
     "PatientID",
@@ -31,20 +32,21 @@ def extract_dicom_metadata(
     json_file="dicom_metadata.json"
 ):
     """
-    Extracts clinically relevant metadata from a DICOM file 
-    and saves to CSV and JSON.
+    Extract clinically relevant metadata from a DICOM file
+    and save it to CSV and JSON.
     """
-    try:
-        ds = pydicom.dcmread(dicom_file)
-    except FileNotFoundError:
+    # If DICOM file is missing, generate a sample
+    if not os.path.exists(dicom_file):
         print("⚠️ No DICOM file found, generating a sample one...")
         dicom_file = generate_sample_dicom()
-        ds = pydicom.dcmread(dicom_file)
 
+    # Read the DICOM file
+    ds = pydicom.dcmread(dicom_file)
+
+    # Extract metadata
     metadata = {}
     for field in CLINICAL_FIELDS:
-        if hasattr(ds, field):
-            metadata[field] = str(getattr(ds, field))
+        metadata[field] = str(getattr(ds, field)) if hasattr(ds, field) else pd.NA
 
     # Save to CSV
     pd.DataFrame([metadata]).to_csv(csv_file, index=False)
@@ -57,8 +59,12 @@ def extract_dicom_metadata(
 
     return metadata
 
-if __name__ == "__main__":
-    generate_sample_dicom()   # always refresh with a new DICOM
+def main():
+    """Entry point for DICOM metadata extraction."""
+    print("\n🩺 Extracting DICOM metadata...\n")
     meta = extract_dicom_metadata()
-    print("✅ Extracted Clinically Relevant Metadata Preview:")
+    print("✅ Metadata Preview:")
     print(meta)
+
+if __name__ == "__main__":
+    main()
