@@ -1,4 +1,4 @@
-# modules/dose_response/dose_response_fitter.py
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,7 +20,7 @@ def fit_dose_response(data_file="sample_dose_response.csv", results_file="fitted
     try:
         df = pd.read_csv(data_file)
     except FileNotFoundError:
-        print("⚠️ No dataset found, generating a new one...")
+        print(" No dataset found, generating a new one...")
         df = generate_sample_dose_response(data_file)
 
     x = df["Dose_uM"].values
@@ -30,12 +30,12 @@ def fit_dose_response(data_file="sample_dose_response.csv", results_file="fitted
     popt, _ = curve_fit(hill_equation, x, y, p0=[10, 1])  # initial guess
     ec50, slope = popt
 
-    print(f"✅ Fitted EC50: {ec50:.2f} µM")
-    print(f"✅ Fitted Hill Slope: {slope:.2f}")
+    print(f" Fitted EC50: {ec50:.2f} µM")
+    print(f" Fitted Hill Slope: {slope:.2f}")
 
     # Save fitted parameters
     pd.DataFrame({"EC50_uM": [ec50], "Hill_Slope": [slope]}).to_csv(results_file, index=False)
-    print(f"💾 Fitted results saved to {results_file}")
+    print(f" Fitted results saved to {results_file}")
 
     # Plot experimental data + fitted curve
     plt.figure(figsize=(8, 5))
@@ -53,7 +53,7 @@ def fit_dose_response(data_file="sample_dose_response.csv", results_file="fitted
     if save_path:
         plt.savefig(save_path)
         plt.close()
-        print(f"💾 Plot saved to {save_path}")
+        print(f" Plot saved to {save_path}")
     else:
         plt.show()
 
