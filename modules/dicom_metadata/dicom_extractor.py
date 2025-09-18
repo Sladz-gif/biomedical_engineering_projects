@@ -1,4 +1,4 @@
-# modules/dicom_metadata/dicom_extractor.py
+
 import os
 import json
 import pandas as pd
@@ -37,7 +37,7 @@ def extract_dicom_metadata(
     """
     # If DICOM file is missing, generate a sample
     if not os.path.exists(dicom_file):
-        print("⚠️ No DICOM file found, generating a sample one...")
+        print(" No DICOM file found, generating a sample one...")
         dicom_file = generate_sample_dicom()
 
     # Read the DICOM file
@@ -50,12 +50,12 @@ def extract_dicom_metadata(
 
     # Save to CSV
     pd.DataFrame([metadata]).to_csv(csv_file, index=False)
-    print(f"💾 Clinically relevant metadata saved to {csv_file}")
+    print(f" Clinically relevant metadata saved to {csv_file}")
 
     # Save to JSON
     with open(json_file, "w") as f:
         json.dump(metadata, f, indent=4)
-    print(f"💾 Clinically relevant metadata saved to {json_file}")
+    print(f" Clinically relevant metadata saved to {json_file}")
 
     return metadata
 
@@ -63,7 +63,7 @@ def main():
     """Entry point for DICOM metadata extraction."""
     print("\n🩺 Extracting DICOM metadata...\n")
     meta = extract_dicom_metadata()
-    print("✅ Metadata Preview:")
+    print(" Metadata Preview:")
     print(meta)
 
 if __name__ == "__main__":
