@@ -1,4 +1,4 @@
-# modules/ecg_analyzer.py
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -47,7 +47,7 @@ def analyze_ecg(file_path=None, save_path=None):
     if save_path:
         plt.savefig(save_path)
         plt.close()
-        print(f"💾 ECG plot saved to {save_path}")
+        print(f" ECG plot saved to {save_path}")
     else:
         plt.show()
 
